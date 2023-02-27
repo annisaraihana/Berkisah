@@ -1,4 +1,4 @@
-#Berkisah
+# Berkisah
 
 Sebuah aplikasi yang menggunakan model GPT-3 untuk membuat Choose Your Adventure Story Berbahasa Indonesia (Dummy Tugas Senior Project TIF)
 
