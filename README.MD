@@ -4,6 +4,6 @@ Sebuah aplikasi yang menggunakan model GPT-3 untuk membuat Choose Your Adventure
 
 Kelompok COM5
 
-- Ketua Kelompok: 
+- Ketua Kelompok: M. Iqbal Reza Riandani (20/460549/TK/51138)
 - Anggota 1: Karunia Perjuangan M (20/456368/TK/50498)
 - Anggota 2:
