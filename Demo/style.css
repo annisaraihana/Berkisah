@@ -1,0 +1,17 @@
+.choicebutton {
+    color: #fff;
+    flex: 0 !important;
+}
+
+.choicelabel {
+    flex: 1;
+    text-align: left;
+    
+}
+
+.choicerow {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
