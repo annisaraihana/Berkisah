@@ -19,7 +19,7 @@ async def root():
 async def story(story_id: int):
     return {"message": f"This is a story with id {story_id}"}
 
-@app.get("/generate/intro")
+@app.post("/generate/intro")
 async def intro(story_intro: StoryIntro):
     for result in generate_story_and_choices(story_intro.prompt,story_beginning=True):
         output = result
