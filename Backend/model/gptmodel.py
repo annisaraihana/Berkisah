@@ -54,7 +54,7 @@ def stream_generate_text(init_text,max_sentences=0,max_tokens=512,hidden_texts=[
     yield outputted_sentences
 
 
-def generate_story_and_choices(beginning_text="Pada zaman dahulu", selected_choice="", num_choices=3, story_beginning=True):
+def generate_story_and_choices(beginning_text="Pada zaman dahulu", selected_choice="", num_choices=3, story_beginning=True, story_sequence=[]):
     clear_torch_cache()
     """
     beginning_text: text that will be used to generate story (if in beginning is the story, else the choice of previous story)
@@ -65,12 +65,9 @@ def generate_story_and_choices(beginning_text="Pada zaman dahulu", selected_choi
         story_sequence = []
         story = beginning_text
     else:
-        story = ""
-        try:
-            for item in story_sequence:
-                story += item
-        except:
-            story_sequence = []
+        story = ""     
+        for item in story_sequence:
+            story += item
     pregenerated_length = len(story)
     
     story += selected_choice
@@ -81,7 +78,11 @@ def generate_story_and_choices(beginning_text="Pada zaman dahulu", selected_choi
     for text in stream_generate_text(story,max_sentences=5,max_tokens=512):
         story = text
         # Di awal, juga tampilkan awalan cerita yang dimasukkan pengguna
-        yield story[pregenerated_length:] if not story_beginning else story, *choices
+        yield {
+            "story": story[pregenerated_length:] if not story_beginning else story,
+            "choices": choices,
+            "story_sequence": story_sequence,
+        }
     
     #clean story from html tag
     story = re.sub(r"<[^>]*>","",story)
@@ -93,7 +94,11 @@ def generate_story_and_choices(beginning_text="Pada zaman dahulu", selected_choi
         choices[i] = ""
         for text in stream_generate_text(story,max_sentences=max_sentences,max_tokens=512):
             choices[i] = text[len(story):]
-            yield story[pregenerated_length:] if not story_beginning else story, *choices
+            yield {
+            "story": story[pregenerated_length:] if not story_beginning else story,
+            "choices": choices,
+            "story_sequence": story_sequence,
+        }
         #clean choices from html tag
         choices[i] = re.sub(r"<[^>]*>","",choices[i])
         
