@@ -1,15 +1,21 @@
+import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM,GPT2LMHeadModel
 import re
 from .utils import *
 
 
-model_path_or_name = "/media/karuniaperjuangan/SSD E/AI-Project/AI-Project-WSL/text-generation-webui/models/gpt2-medium-indonesian-story"
+model_path_or_name = "cahya/gpt2-medium-indonesian-story"
 
 tokenizer = AutoTokenizer.from_pretrained(model_path_or_name)
+
 model:GPT2LMHeadModel = AutoModelForCausalLM.from_pretrained(model_path_or_name,
-                                             load_in_8bit=True,
-                                             device_map="auto"
-                                             ).cuda()
+                                             #torch_dtype=torch.float16,
+                                             )
+if torch.cuda.is_available():
+    model.cuda()
+    model.half()
+    torch.cuda.empty_cache()
+    clear_torch_cache()
 
 def stream_generate_text(init_text,max_sentences=0,max_tokens=512,hidden_texts=[]):
     """
@@ -19,10 +25,14 @@ def stream_generate_text(init_text,max_sentences=0,max_tokens=512,hidden_texts=[
     hidden_sentence: list of string that will be hidden from the generated text (example: initial text and unfinished sentences)
     """
     sentence = init_text
-    inputs_ids = tokenizer(sentence, return_tensors="pt").input_ids.cuda()
+    inputs_ids = tokenizer(sentence, return_tensors="pt").input_ids
+    if torch.cuda.is_available():
+        inputs_ids = inputs_ids.cuda()
     continue_generate = True
     while continue_generate:
-        inputs_ids = tokenizer(sentence, return_tensors="pt").input_ids.cuda()
+        inputs_ids = tokenizer(sentence, return_tensors="pt").input_ids
+        if torch.cuda.is_available():
+            inputs_ids = inputs_ids.cuda()
         generate_params = {
         "max_new_tokens": 8,
         "eos_token_id": tokenizer.eos_token_id,
