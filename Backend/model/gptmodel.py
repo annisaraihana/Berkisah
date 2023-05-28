@@ -2,9 +2,13 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM,GPT2LMHeadModel
 import re
 from .utils import *
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
-model_path_or_name = "cahya/gpt2-medium-indonesian-story"
+print("Loading model : ",os.environ.get("MODEL_PATH_OR_NAME","cahya/gpt2-medium-indonesian-story"))
+model_path_or_name = os.environ.get("MODEL_PATH_OR_NAME","cahya/gpt2-medium-indonesian-story")
 
 tokenizer = AutoTokenizer.from_pretrained(model_path_or_name)
 
