@@ -1,0 +1,5 @@
+fastapi[all]
+torch
+accelerate
+python-dotenv
+transformers>=4.22.0
