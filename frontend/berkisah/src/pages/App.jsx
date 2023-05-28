@@ -3,7 +3,7 @@ import './App.css'
 function App() {
 
   return (
-      <div className='flex justify-center items-center'>
+      <div className='flex justify-center items-center xl:w-screen mx-auto'>
         <div className='flex relative'>
           <div className='z-40 static p-10 bg-[#EFEFEF] rounded-2xl overflow-hidden shadow-xl'>
             <div className="grid grid-flow-row-dense sm:grid-cols-2 items-center justify-center">

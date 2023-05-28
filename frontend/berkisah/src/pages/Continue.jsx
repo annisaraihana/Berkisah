@@ -3,9 +3,9 @@ import './App.css'
 function Continue() {
 
   return (
-    <div className='flex justify-center items-center min-h-screen min-w-full'>
+    <div className='flex justify-center items-center min-h-screen min-w-full xl:w-screen'>
       <div className='grid grid-flow-row'>  
-        <h2 className='flex justify-start items-start text-kuning mb-10'>Lanjutkan Cerita</h2>
+        <h2 className='flex justify-center items-center text-kuning mb-10'>Lanjutkan Cerita</h2>
         
         <div className='grid grid-cols-1 sm:grid-cols-4 gap-4'>
           <div class="max-w-sm rounded-lg overflow-hidden border-2 border-[#000000] bg-[#1D1D1D] shadow-xl">
