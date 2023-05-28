@@ -1,0 +1,14 @@
+{
+    "height":512,
+    "width":512,
+    "text_prompts":[
+        {
+            "text":"positive_prompt",
+            "weight":1.0
+        },
+        {
+            "text":"negative_prompt",
+            "weight":-1.0
+        }
+    ]
+}

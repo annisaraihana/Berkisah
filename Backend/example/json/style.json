@@ -1,0 +1,26 @@
+[
+    {
+        "style_name":"realistic",
+        "displayed_name":"Realistic Style",
+        "positive_prompt":"realistic, cinematic, natural light, kodak portrait 400. lens flare. 85mm, ƒ1.8, award winning photography",
+        "negative_prompt":"cartoon, comic illustration, digital art, ugly, deformed"
+    },
+    {
+        "style_name":"kid",
+        "displayed_name":"Kid Illustration",
+        "positive_prompt":"kid drawing, story book illustration, children book",
+        "negative_prompt":"realistic, dark"
+    },
+    {
+        "style_name":"digital_art",
+        "displayed_name":"Digital Art",
+        "positive_prompt":"concept art, intricate, highly detailed 8k, smooth, sharp focus, artgerm, artstation, art by zexi guo and nira and junpei suzuki and gharliera and rinotuna",
+        "negative_prompt":"ugly"
+    },
+    {
+        "style_name":"classical_painting",
+        "displayed_name":"Classical Painting",
+        "positive_prompt":"victorian, highly detailed, cinematic lighting, painting by thomas lawrence",
+        "negative_prompt":"ugly"
+    }
+]
