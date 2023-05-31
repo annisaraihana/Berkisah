@@ -5,16 +5,18 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    colors:{
-      'merah': '#B62A4B',
-      'kuning': '#F9CC41',
-      'hijau': '#8AB42E',
-      'hitam': '#060606'
-    },
+
     extend: {
+      colors: {
+        'merah': '#B62A4B',
+        'kuning': '#F9CC41',
+        'hijau': '#8AB42E',
+        'hitam': '#060606'
+      },
       backgroundImage: {
-        'base' : "url('src/assets/base-bg.png')",
+        'base': "url('src/assets/base-bg.png')",
       }
+
     },
   },
   plugins: [],
