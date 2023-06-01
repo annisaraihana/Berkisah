@@ -7,6 +7,7 @@ import Continue from './pages/Continue';
 import NewStory from './pages/NewStory';
 import './index.css'
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 export function Main() {
   return (
@@ -18,6 +19,7 @@ export function Main() {
         <Route path='/settings' element={<Settings/>}/>
         <Route path='/newstory' element={<NewStory/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
       </Routes>
     </BrowserRouter>
   );
