@@ -3,3 +3,9 @@ torch
 accelerate
 python-dotenv
 transformers>=4.22.0
+fastapi-sqlalchemy
+pydantic
+alembic
+psycopg2
+uvicorn
+python-dotenv
