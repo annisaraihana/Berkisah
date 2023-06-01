@@ -5,6 +5,7 @@ import App from './pages/App'
 import Settings from './pages/Settings'
 import NotFound from './pages/NotFound'
 import Continue from './pages/Continue';
+import MainStory from './pages/MainStory';
 import NewStory from './pages/NewStory';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
