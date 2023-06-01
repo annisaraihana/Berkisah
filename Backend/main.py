@@ -1,3 +1,4 @@
+from fastapi_sqlalchemy import DBSessionMiddleware
 from model import model, tokenizer, generate_story_and_choices
 from fastapi import FastAPI, HTTPException
 from body_model import StoryContinuations, StoryIntro, ImageRequestModel, TranslationRequestModel
@@ -14,6 +15,7 @@ load_dotenv()
 
 app = FastAPI()
 
+app.add_middleware(DBSessionMiddleware, db_url=os.environ['DATABASE_URL'])
 
 @app.get("/")
 async def root():
