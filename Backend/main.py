@@ -1,6 +1,7 @@
 from fastapi_sqlalchemy import DBSessionMiddleware
 from model import model, tokenizer, generate_story_and_choices
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from body_model import StoryContinuations, StoryIntro, ImageRequestModel, TranslationRequestModel
 from typing import List
 from dotenv import load_dotenv
@@ -15,13 +16,21 @@ load_dotenv()
 
 app = FastAPI()
 
-app.add_middleware(DBSessionMiddleware, db_url=os.environ['DATABASE_URL'])
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+# app.add_middleware(DBSessionMiddleware, db_url=os.environ['DATABASE_URL'])
 @app.get("/")
+
+@app.get("/api")
 async def root():
     return {"message": "Hello World"}
 
-@app.post("/generate/intro")
+@app.post("/api/generate/intro")
 async def intro(story_intro: StoryIntro):
     if os.environ.get("DUMMY_TEXT_GENERATION") == "1":
         return {
@@ -39,7 +48,7 @@ async def intro(story_intro: StoryIntro):
         output = result
     return output
 
-@app.post("/generate/story")
+@app.post("/api/generate/story")
 async def story(story_continuations: StoryContinuations):
     if os.environ.get("DUMMY_TEXT_GENERATION") == "1":
         return {
@@ -57,7 +66,7 @@ async def story(story_continuations: StoryContinuations):
         output = result
     return output
 
-@app.post("/generate/image")
+@app.post("/api/generate/image")
 async def image(image_request: ImageRequestModel):
     try:
         if os.environ.get("DUMMY_IMAGE_GENERATION") == "1":
@@ -110,7 +119,7 @@ async def image(image_request: ImageRequestModel):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.post("/translate_id_to_en")
+@app.post("/api/translate_id_to_en")
 async def translate_id_to_en(body:TranslationRequestModel):
     # Add your key and endpoint
     key = os.environ.get("AZURE_TRANSLATE_KEY")

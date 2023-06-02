@@ -1,14 +1,25 @@
-import './App.css'
-import { Link } from 'react-router-dom'
+import axios from "axios";
+import React from "react";
+import { Link } from "react-router-dom";
 
-let story = 
-  {
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
-    image: 'src/assets/dummy.png',
-    choices: ['Alur 1', 'Alur 2', 'Alur 3'],
-  }
-  
+const baseURL = 'http://127.0.0.1:5173/api';
+
 function MainStory() {
+
+  const [content, setContent] = React.useState(null);
+  let img = 'src/assets/dummy.png'
+  
+  function generateStory() {
+    if (content == null) axios.post(`${baseURL}/generate/intro`, {
+      prompt: "Ada seorang raja"
+    }).then((response) => {
+      setContent(response.data);
+    });
+  }
+
+  generateStory()
+  
+  if (!content) return "Internal Server Error"
 
   return (
     <>
@@ -30,10 +41,10 @@ function MainStory() {
       </div>
       
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-        <img class="aspect-[3/2] w-full object-cover rounded shadow-lg" src={story.image}></img>
+        <img class="aspect-[3/2] w-full object-cover rounded shadow-lg" src={img}></img>
         <div class='grid grid-flow-row'>
-        <p class='text-justify'>{story.text}</p>
-          {story.choices.map((choice) => {
+        <p class='text-justify'>{content.story}</p>
+          {content.choices.map((choice) => {
           return (
             <button>{choice}</button>)
             })}
