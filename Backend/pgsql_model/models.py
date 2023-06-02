@@ -30,6 +30,7 @@ class User(Base):
     id_user = Column(Integer, primary_key=True)
     username = Column(VARCHAR(128))
     password = Column(VARCHAR(128))
+    token = Column(VARCHAR(128))
 
 class UserConfig(Base):
     __tablename__ = 'user_config'
