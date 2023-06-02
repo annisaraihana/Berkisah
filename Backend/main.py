@@ -10,6 +10,7 @@ import base64
 import requests
 import requests, uuid, json, os
 from routers.ai import router as ai_router
+from routers.db import router as db_router
 
 
 load_dotenv()
@@ -25,6 +26,8 @@ app.add_middleware(
 
 app.add_middleware(DBSessionMiddleware, db_url=os.environ['DATABASE_URL'])
 app.include_router(ai_router)
+app.include_router(db_router)
+
 @app.get("/")
 
 @app.get("/api")

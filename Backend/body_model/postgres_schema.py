@@ -10,6 +10,19 @@ class UserSchema(BaseModel):
     class Config:
         orm_mode = True
 
+class UserLoginSchema(BaseModel):
+    username:str
+    password:str
+
+    class Config:
+        orm_mode = True
+
+class UserTokenSchema(BaseModel):
+    token:str
+
+    class Config:
+        orm_mode = True
+        
 class UserConfigSchema(BaseModel):
     id_config : int
     id_user : int
