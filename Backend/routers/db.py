@@ -7,7 +7,7 @@ from body_model import *
 router = APIRouter()
 
 
-@router.post("/api/register",response_model=UserTokenSchema)
+@router.post("/api/register",response_model=UserTokenSchema, summary="Mendaftarkan akun dengan username dan password. Respon diberikan dalam bentuk token")
 async def register(user:UserLoginSchema):
     try:
         #generate token
@@ -29,7 +29,7 @@ async def register(user:UserLoginSchema):
     except HTTPException as e:
         raise HTTPException(status_code=400, detail=e.detail)
 
-@router.post("/api/login", response_model=UserTokenSchema)
+@router.post("/api/login", response_model=UserTokenSchema, summary="Login dengan username dan password untuk mendapatkan token")
 async def login(user:UserLoginSchema):
     try:
         #check if username exists
@@ -44,7 +44,7 @@ async def login(user:UserLoginSchema):
     except HTTPException as e:
         raise HTTPException(status_code=400, detail=e.detail)
 
-@router.get("/api/story_list")
+@router.get("/api/story_list", summary="Mengambil list semua cerita. Tidak perlu body apapun")
 async def story_list():
     try:
         #return json of all stories
@@ -52,7 +52,7 @@ async def story_list():
     except HTTPException as e:
         raise HTTPException(status_code=400, detail=e.detail)
 
-@router.post("/api/submit_story",response_model=StorySchema)
+@router.post("/api/submit_story",response_model=StorySchema, summary="Mengirimkan cerita baru. Respon diberikan dalam bentuk json cerita yang sudah dibuat. Tidak perlu token")
 async def submit_story(story:StorySubmitSchema):
     try:
         #add story to db
@@ -64,7 +64,7 @@ async def submit_story(story:StorySubmitSchema):
     except HTTPException as e:
         raise HTTPException(status_code=400, detail=e.detail)
 
-@router.get("/api/story/{id_story}")
+@router.get("/api/story/{id_story}", summary="Mengambil cerita dengan id tertentu. Tidak perlu body apapun")
 async def get_story(id_story:int):
     try:
         #return json of story
@@ -72,7 +72,7 @@ async def get_story(id_story:int):
     except HTTPException as e:
         raise HTTPException(status_code=400, detail=e.detail)
 
-@router.post("/api/save_progress")
+@router.post("/api/save_progress", summary="Menyimpan progress cerita. Di body ada tiga hal yang perlu diisi: token dari login, id_story cerita, dan progress cerita dalam bentuk json (story sequence)")
 async def save_progress(progress:SavedStoryProgressSchema):
     try:
         #add progress to db
@@ -86,7 +86,7 @@ async def save_progress(progress:SavedStoryProgressSchema):
     except HTTPException as e:
         raise HTTPException(status_code=400, detail=e.detail)
 
-@router.post("/api/get_progress")
+@router.post("/api/get_progress", summary="Mengambil daftar progress cerita yang disimpan. Di body ada satu hal yang perlu diisi: token dari login")
 async def get_progress(token:UserTokenSchema):
     try:
         #get user id
@@ -97,7 +97,7 @@ async def get_progress(token:UserTokenSchema):
     except HTTPException as e:
         raise HTTPException(status_code=400, detail=e.detail)
 
-@router.post("/api/load_progress/{id_progress}")
+@router.post("/api/load_progress/{id_progress}", summary="Mengambil progress cerita dengan id tertentu. Cukup mengisi url dengan id_progress dari list yang didapat dari get_progress")
 async def load_progress(id_progress:int):
     try:
         #return json of progress
@@ -105,7 +105,7 @@ async def load_progress(id_progress:int):
     except HTTPException as e:
         raise HTTPException(status_code=400, detail=e.detail)
     
-@router.post("/api/save_config")
+@router.post("/api/save_config", summary="Menyimpan konfigurasi user. Di body ada satu hal yang perlu diisi: token dari login, dan konfigurasi dalam bentuk json (UserConfigSchema)")
 async def save_config(config:UserConfigSchema):
     try:
         config = model.UserConfig(id_user=config.id_user, text_model=config.text_model, image_model=config.image_model,image_artstyle=config.image_artstyle)
@@ -118,7 +118,7 @@ async def save_config(config:UserConfigSchema):
     except HTTPException as e:
         raise HTTPException(status_code=400, detail=e.detail)
 
-@router.post("/api/get_config", response_model=UserConfigSchema)
+@router.post("/api/get_config", response_model=UserConfigSchema, summary="Mengambil konfigurasi user. Di param ada satu hal yang perlu diisi: token dari login")
 async def get_config(token:UserTokenSchema):
     try:
         #get user id
