@@ -1,4 +1,4 @@
-FROM python:3.11.1-slim-bullseye
+FROM python:3.10.10-slim-bullseye
 
 ENV PYTHONUNBUFFERED 1
 WORKDIR /build
@@ -8,6 +8,9 @@ RUN python -m venv /venv
 ENV PATH="/venv/bin:$PATH"
 
 COPY Backend Backend
+RUN apt-get update && apt-get install libpq-dev python-dev -y
+
+RUN pip install torch --index-url https://download.pytorch.org/whl/cpu
 RUN pip install -r ./Backend/requirements.txt
 
 # Create new unprivileged user

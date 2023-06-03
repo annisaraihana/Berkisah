@@ -1,11 +1,12 @@
 fastapi[all]
-torch
 accelerate
 python-dotenv
-transformers>=4.22.0
 fastapi-sqlalchemy
 pydantic
 alembic
 psycopg2
 uvicorn
 python-dotenv
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+transformers>=4.22.0
