@@ -28,25 +28,25 @@ class Book(Base):
 class User(Base):
     __tablename__ = 'user'
     id_user = Column(Integer, primary_key=True)
-    username = Column(VARCHAR(128))
-    password = Column(VARCHAR(128))
-    token = Column(VARCHAR(128))
+    username = Column(String)
+    password = Column(String)
+    token = Column(String)
 
 class UserConfig(Base):
     __tablename__ = 'user_config'
     id_config = Column(Integer, primary_key=True)
     id_user = Column(Integer, ForeignKey('user.id_user'))
-    text_model = Column(VARCHAR(128))
-    image_model = Column(VARCHAR(128))
-    image_artstyle = Column(VARCHAR(128))
+    text_model = Column(String)
+    image_model = Column(String)
+    image_artstyle = Column(String)
 
 class Story(Base):
     __tablename__ = 'story'
     id_story = Column(Integer, primary_key=True)
-    title = Column(VARCHAR(128))
-    description = Column(VARCHAR(128))
-    prompt = Column(VARCHAR(128))
-    image = Column(VARCHAR(128))
+    title = Column(String)
+    description = Column(String)
+    prompt = Column(String)
+    image = Column(String)
 
 class SavedStoryProgress(Base):
     __tablename__ = 'saved_story_progress'

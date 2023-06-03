@@ -1,5 +1,5 @@
 # build a schema using pydantic
-from pydantic import BaseModel
+from pydantic import BaseModel, Json
 from datetime import datetime
 
 class UserSchema(BaseModel):
@@ -43,10 +43,19 @@ class StorySchema(BaseModel):
     class Config:
         orm_mode = True
 
+class StorySubmitSchema(BaseModel):
+    title : str
+    description : str
+    prompt : str
+    image : str
+
+    class Config:
+        orm_mode = True
+
 class SavedStoryProgressSchema(BaseModel):
     token : str
     id_story : int
-    progress : str
+    progress : Json
 
     class Config:
         orm_mode = True
