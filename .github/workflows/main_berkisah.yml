@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: '3.10'
-        working-directory: ./Backend
+        #working-directory: ./Backend
 
       - name: Create and start virtual environment
         run: |
@@ -43,6 +43,7 @@ jobs:
           path: |
             . 
             !venv/
+        
 
   deploy:
     runs-on: ubuntu-latest
@@ -56,7 +57,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: python-app
-          path: .
+          path: ./Backend
           
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
