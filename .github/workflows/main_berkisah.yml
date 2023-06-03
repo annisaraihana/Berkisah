@@ -59,11 +59,11 @@ jobs:
           name: python-app
           path: ./Backend/
 
-      - name: move all ./Backend/* to ./
-        run: |
-          mv ./Backend/* ./
-          rm -rf ./Backend/
-          ls -a
+      #- name: move all ./Backend/* to ./
+      #  run: |
+      #    mv ./Backend/* ./
+      #    rm -rf ./Backend/
+      #    ls -a
           
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
