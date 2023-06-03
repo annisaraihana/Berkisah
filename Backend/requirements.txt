@@ -1,3 +1,4 @@
+https://download.pytorch.org/whl/cpu/torch-2.0.1%2Bcpu-cp310-cp310-linux_x86_64.whl
 fastapi[all]
 accelerate
 python-dotenv
@@ -7,6 +8,4 @@ alembic
 psycopg2
 uvicorn
 python-dotenv
---extra-index-url https://download.pytorch.org/whl/cpu
-torch
 transformers>=4.22.0
