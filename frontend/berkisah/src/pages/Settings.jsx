@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 function Settings() {
 
   return (
-    <div className='flex justify-center items-center xl:w-screen mx-auto'>
+    <div className='flex items-center justify-center w-[85vw]'>
           <div className='flex relative'>
-            <div className='z-40 static p-10 w-full md:w-[80vw] max-w-2xl bg-[#EFEFEF] rounded-2xl overflow-hidden shadow-xl'>
+            <div className='z-40 static p-10 min-w-full md:w-[80vw] max-w-2xl bg-[#EFEFEF] rounded-2xl overflow-hidden shadow-xl'>
               <div className="items-center justify-center">
 
               <h2 className='flex items-center justify-center sm:justify-start mt-5 text-hitam'>Pengaturan</h2>

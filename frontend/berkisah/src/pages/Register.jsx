@@ -1,11 +1,24 @@
-import './App.css'
-import { Link } from 'react-router-dom'
+import axios from "axios";
+import React from "react";
+import { Link } from "react-router-dom";
+const baseURL = 'http://127.0.0.1:5173/api';
 
 export default function Register() {
-    return (
-        <div className='flex justify-center items-center xl:w-screen mx-auto'>
+  const [credentials, setCredentials] = React.useState(null);
+  
+  function performRegister(e) {
+    axios.post(`${baseURL}/register`, {
+      username: credentials.username,
+      password: credentials.password
+    }).then((response) => {
+      setContent(response.data);
+    });
+  }
+  
+  return (
+        <div className='fixed left-0 right-0 top-0 px-[15vw] py-[15vh]'>
           <div className='flex relative'>
-            <div className='z-40 static p-10 w-full md:w-[80vw] max-w-2xl bg-[#EFEFEF] rounded-2xl overflow-hidden shadow-xl'>
+            <div className='z-40 static p-10 min-w-full md:w-[80vw] max-w-2xl bg-[#EFEFEF] rounded-2xl overflow-hidden shadow-xl'>
               <div className="items-center justify-center">
                 <p className='text-hitam my-4'>Buat Akun Berkisah Anda</p>
                 {/* Username */}

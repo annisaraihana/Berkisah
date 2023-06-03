@@ -1,12 +1,16 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import Loader from "../components/nav/Loader";
 
 const baseURL = 'http://127.0.0.1:5173/api';
 
 function MainStory() {
+  const [isLoading, setIsLoading] = React.useState(false);
   const [content, setContent] = React.useState(null);
+  const [image, setImage] = React.useState([]);
   const [sequence, setSequence] = React.useState([]);
+  const [customChoice, setCustomChoice] = React.useState(null)
 
   let img = 'src/assets/dummy.png'
   
@@ -15,9 +19,23 @@ function MainStory() {
       prompt: "Ada seorang raja"
     }).then((response) => {
       setContent(response.data);
+      generateImage();
     });
   }
   
+  function generateImage() {
+    axios.post(`${baseURL}/generate/image`, {
+      positive_prompt: content.story,
+      negative_prompt: "",
+      artstyle_keyword: "",
+      width: 512,
+      height: 512
+    }).then((response) => {
+      setImage(response.data);
+      setIsLoading(false);
+    })
+  }
+
   function generateStory(selectedchoice, currentsequence) {
     axios.post(`${baseURL}/generate/story`, {
       choice: selectedchoice,
@@ -25,7 +43,9 @@ function MainStory() {
     }).then((response) => {
       setContent(response.data);
       console.log(response.data)
-    });
+      generateImage();
+      setIsLoading(false);
+    })
     console.log(currentsequence)
   }
   
@@ -42,10 +62,11 @@ function MainStory() {
 
   generateIntro()
   
-  if (!content) return "Internal Server Error"
+  if (!content) return <Loader/>
 
   return (
-    <>
+    <div>
+      {isLoading ? <Loader/> : (<>
       <div class='grid grid-cols-3 items-center'>
         <div>
           <img onClick={() => handleBack()} class="cursor-pointer aspect-square w-6" src={'src/assets/back-icon.svg'}></img>
@@ -67,20 +88,28 @@ function MainStory() {
       </div>
       
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-        <img class="aspect-[3/2] w-full object-cover rounded shadow-lg" src={img}></img>
-        <div class='grid grid-flow-row'>
-        <p class='text-justify'>{content.story}</p>
-          {content.choices.map((choice) => {
-          return (
-            <button onClick={() => handleClick(content.story, choice)}>{choice}</button>)
-            })}
-          <div class='flex flex-flow-col gap-3 items-center mt-1.5'>
-            <input type='text' placeholder='atau ketikkan satu kalimat cerita lanjutan yang diinginkan' className='w-full h-full text-hitam text-center bg-kuning rounded-lg border-2 border-[#A37C04] placeholder-[#A37C04]'></input>
-            <button class='h-full'>Submit</button>
-          </div>
-        </div>      
+          <img class="aspect-[5/4] item-center w-full object-cover rounded-lg shadow-lg" src={`data:image/jpeg;base64,${image[0]}`}></img>
+          <div class='grid grid-flow-row'>
+          <p class='text-justify'>{content.story}</p>
+            {content.choices.map((choice) => {
+            return (
+              <button onClick={() => handleClick(content.story, choice) + setIsLoading(true)}>{choice}</button>)
+              })}
+            
+            <div class='flex flex-flow-col gap-3 items-center mt-1.5'>
+              <input 
+                type='text'
+                placeholder='atau ketikkan satu kalimat cerita lanjutan yang diinginkan'
+                className='w-full h-full text-hitam text-center bg-kuning rounded-lg border-2 border-[#A37C04] placeholder-[#A37C04]'
+                onChange={(e) => setCustomChoice(e.target.value)}>
+              </input>
+              <button onClick={() => handleClick(content.story, customChoice) + setIsLoading(true)} class='h-full'>Submit</button>
+            </div>
+          </div>      
         </div>
-    </>
+        </>
+        )}
+    </div>
   )
 }
 

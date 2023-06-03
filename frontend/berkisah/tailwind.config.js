@@ -7,6 +7,10 @@ export default {
   theme: {
 
     extend: {
+      animation: {
+        bounce200: 'bounce 1s infinite 200ms',
+        bounce400: 'bounce 1s infinite 400ms',
+      },
       colors: {
         'merah': '#B62A4B',
         'kuning': '#F9CC41',
