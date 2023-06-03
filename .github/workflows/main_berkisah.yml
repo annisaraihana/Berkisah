@@ -30,7 +30,7 @@ jobs:
       
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./Backend
+        #working-directory: ./Backend
 
       
         
@@ -63,6 +63,7 @@ jobs:
         run: |
           mv ./Backend/* ./
           rm -rf ./Backend
+          ls -a
           
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
