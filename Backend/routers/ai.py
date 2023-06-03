@@ -49,6 +49,8 @@ async def story(story_continuations: StoryContinuations):
 @router.post("/api/generate/image")
 async def image(image_request: ImageRequestModel):
     try:
+        translate_id_to_en_response = await translate_id_to_en(TranslationRequestModel(text=image_request.positive_prompt))
+        image_request.positive_prompt = translate_id_to_en_response + image_request.artstyle_keyword
         if os.environ.get("DUMMY_IMAGE_GENERATION") == "1":
             dummy_image_path = os.path.join(os.path.dirname(__file__),"dummy_image.png")
             with open(dummy_image_path,"rb") as f:

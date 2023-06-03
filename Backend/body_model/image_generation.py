@@ -7,5 +7,6 @@ from pydantic import BaseModel
 class ImageRequestModel(BaseModel):
     positive_prompt: str
     negative_prompt: str
+    artstyle_keyword: str = ""
     width: int = 512
     height: int = 512
