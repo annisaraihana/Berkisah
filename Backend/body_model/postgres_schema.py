@@ -44,8 +44,7 @@ class StorySchema(BaseModel):
         orm_mode = True
 
 class SavedStoryProgressSchema(BaseModel):
-    id_progress : int
-    id_user : int
+    token : str
     id_story : int
     progress : str
 
