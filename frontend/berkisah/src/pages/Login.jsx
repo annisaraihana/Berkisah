@@ -34,7 +34,6 @@ export default function Login() {
         if (response.status === 200) {
           toast.success("Berhasil login")
           setToken(response.data.token)
-          
           setIsLoading(false)
           navigate('/')
           return

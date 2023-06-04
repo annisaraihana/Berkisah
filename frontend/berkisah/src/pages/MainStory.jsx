@@ -1,25 +1,32 @@
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
-import Loader from "../components/nav/Loader";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { TokenContext } from "../main";
+import { PromptContext } from "../main";
+import Loader from "../components/nav/Loader";
 
 function MainStory() {
+  const {token, setToken} = useContext(TokenContext)
+  const {prompt} = useContext(PromptContext)
+
   const [isLoading, setIsLoading] = React.useState(false);
   const [content, setContent] = React.useState(null);
   const [image, setImage] = React.useState('src/assets/404.png');
   const [sequence, setSequence] = React.useState([]);
   const [customChoice, setCustomChoice] = React.useState(null)
 
+  console.log(token)
   function generateIntro() {
     if (content == null) axios.post(`${import.meta.env.VITE_BASE_URL}/generate/intro`, {
-      prompt: "Ada seorang raja"
+      prompt: prompt
     }).then((response) => {
       setContent(response.data);
-      generateImage();
+      //generateImage();
     });
   }
-  
+ 
  async function generateImage() {
   try{
     let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/generate/image`, {
@@ -53,12 +60,20 @@ function MainStory() {
     }).then((response) => {
       setContent(response.data);
       console.log(response.data)
-      generateImage();
+      //generateImage();
       setIsLoading(false);
     })
     console.log(currentsequence)
   }
-  
+
+  async function saveProgress() {
+    await axios.post(`${import.meta.env.VITE_BASE_URL}/save_progress`, {
+      token: token,
+      id_story: 0,
+      progress: sequence,
+    }).then(toast.success("Berhasil menyimpan progress"))
+  }
+
   function handleClick(story, choice) {
     setSequence(sequence.concat(story))
     generateStory(choice, sequence)
@@ -83,7 +98,7 @@ function MainStory() {
         </div>
         <h2 className='flex justify-center text-kuning mb-2'>Cerita</h2>
         <div className='grid grid-flow-col justify-end gap-6 items-center'>
-          <img className="aspect-square w-6" src={'src/assets/save-icon.svg'}></img>
+          <img onClick={() => saveProgress()} className="cursor-pointer aspect-square w-6" src={'src/assets/save-icon.svg'}></img>
           <div>
             <Link to={"/"}>
               <img className="aspect-square w-6" src={'src/assets/home-icon.svg'}></img>

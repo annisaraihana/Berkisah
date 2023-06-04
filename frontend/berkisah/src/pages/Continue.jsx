@@ -1,7 +1,22 @@
 import './App.css'
+import React from "react"
+import axios from "axios";
+import { useContext } from "react";
+import { TokenContext } from '../main'
 
 function Continue() {
+  const {token, setToken} = useContext(TokenContext)
+  const [listProgress, setListProgress] = React.useState([])
 
+  async function getProgress() {
+    console.log(token)
+    if (listProgress == null) await axios.post(`${import.meta.env.VITE_BASE_URL}/get_progress`, {
+      token: token
+    }).then((response) => setListProgress(response.data))
+    console.log(listProgress)
+  }
+
+  getProgress();
   return (
     <div>
       <div className='grid grid-flow-row'>  
