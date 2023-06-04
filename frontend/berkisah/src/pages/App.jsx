@@ -4,22 +4,26 @@ import { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TokenContext } from '../main';
 import { toast } from 'react-toastify';
-
+//import { PromptContext } from '../main';
 
 function App() {
   const  {token, setToken} = useContext(TokenContext)
+  //const {prompt, setPrompt} = useContext(PromptContext)
   const navigate = useNavigate()
 
   function logout() {
-    setToken(null)
-    navigate('/')
+    setToken(null) 
+    navigate('/login')
+    //toast.error(token)
   }
 
   useEffect(() => {
+    //toast.success(prompt)
+    //toast.error(token)
     if (token === null) {
       navigate('/login')
     } else {
-      toast.success(token)
+      //toast.success(token)
     }
   }, [])
 
@@ -63,7 +67,7 @@ function App() {
                     Pengaturan
                   </button>
                 </Link>
-                <button className="flex w-full" onSubmit={logout}>
+                <button className="flex w-full" onClick={logout}>
                     Logout
                 </button>
               </div>

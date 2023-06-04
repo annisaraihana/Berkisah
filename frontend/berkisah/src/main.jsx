@@ -12,25 +12,30 @@ import Register from "./pages/Register";
 import { ToastContainer } from "react-toastify";
 import { useContext, createContext, useState } from "react";
 
-export const TokenContext = createContext(null)
+const TokenContext = createContext(null)
+const PromptContext = createContext(null)
+export {TokenContext, PromptContext}
 
 export function Main() {
   const [token, setToken] = useState(null)
+  const [prompt, setPrompt] = useState("Pada zaman dahulu, hiduplah")
   return (
     <TokenContext.Provider value={{token, setToken}}>
-    <BrowserRouter>
-    <ToastContainer/>
-      <Routes>
-        <Route path='*' element={<NotFound/>}/>
-        <Route path="/" element={<App />}/>
-        <Route path='/main' element={<MainStory />}/>
-        <Route path='/continue' element={<Continue/>}/>
-        <Route path='/settings' element={<Settings/>}/>
-        <Route path='/newstory' element={<NewStory/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Register/>}/>
-      </Routes>
-    </BrowserRouter>
+      <PromptContext.Provider value={{prompt, setPrompt}}>
+                                      <BrowserRouter>
+                                      <ToastContainer/>
+                                        <Routes>
+                                          <Route path='*' element={<NotFound/>}/>
+                                          <Route path="/" element={<App />}/>
+                                          <Route path='/main' element={<MainStory />}/>
+                                          <Route path='/continue' element={<Continue/>}/>
+                                          <Route path='/settings' element={<Settings/>}/>
+                                          <Route path='/newstory' element={<NewStory/>}/>
+                                          <Route path="/login" element={<Login/>}/>
+                                          <Route path="/register" element={<Register/>}/>
+                                        </Routes>
+                                      </BrowserRouter>
+      </PromptContext.Provider>                                
     </TokenContext.Provider>
   );
 }
