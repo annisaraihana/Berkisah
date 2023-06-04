@@ -12,8 +12,8 @@ def test_register():
         "password": uuid.uuid4().hex.upper()[0:6],
     }
     init_time = time.time()
-    response = requests.post(url + "api/register", data=data)
-    print(response.text)
+    response = requests.post(url + "api/register", json=data)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code == 200
     print("register time: ", time.time() - init_time)
 
@@ -24,8 +24,8 @@ def test_login():
         "password": 123,
     }
     init_time = time.time()
-    response = requests.post(url + "api/login", data=data)
-    print(response.text)
+    response = requests.post(url + "api/login", json=data)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code == 200
     print("login time: ", time.time() - init_time)
 
@@ -36,8 +36,8 @@ def test_wrong_login():
         "password": 1234,
     }
     init_time = time.time()
-    response = requests.post(url + "api/login", data=data)
-    print(response.text)
+    response = requests.post(url + "api/login", json=data)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code == 401 or response.status_code == 400
     print("wrong login time: ", time.time() - init_time)
 
@@ -46,8 +46,8 @@ def test_generate_intro():
         "prompt": "Pada zaman dahulu",
     }
     init_time = time.time()
-    response = requests.post(url + "api/generate/intro", data=data)
-    print(response.text)
+    response = requests.post(url + "api/generate/intro", json=data)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code == 200
     print("generate intro time: ", time.time() - init_time)
 
@@ -57,8 +57,8 @@ def test_choose_choice():
         "sequence": ["Pada awalnya ia memilih pilihan 1."]
     }
     init_time = time.time()
-    response = requests.post(url + "api/generate/story", data=data)
-    print(response.text)
+    response = requests.post(url + "api/generate/story", json=data)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code == 200
     print("choose choice time: ", time.time() - init_time)
 
@@ -68,22 +68,22 @@ def test_wrong_schema():
         "sequence": "Pada awalnya ia memilih pilihan 1."
     }
     init_time = time.time()
-    response = requests.post(url + "api/generate/story", data=data)
-    print(response.text)
+    response = requests.post(url + "api/generate/story", json=data)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code == 400
     print("wrong schema time: ", time.time() - init_time)
 
 def test_get_story_list():
     init_time = time.time()
     response = requests.get(url + "api/story_list")
-    print(response.text)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code == 200
     print("get story list time: ", time.time() - init_time)
 
 def test_get_config():
     init_time = time.time()
     response = requests.get(url + "api/config")
-    print(response.text)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code == 200
     print("get config time: ", time.time() - init_time)
 
@@ -92,8 +92,8 @@ def test_translate():
         "text": "Pada awalnya ia memilih pilihan 1.",
     }
     init_time = time.time()
-    response = requests.post(url + "api/translate_id_to_en", data=data)
-    print(response.text)
+    response = requests.post(url + "api/translate_id_to_en", json=data)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code == 200
     print("translate time: ", time.time() - init_time)
 
@@ -102,8 +102,8 @@ def wrong_translate_schema():
         "text": ["Pada awalnya ia memilih pilihan 1."],
     }
     init_time = time.time()
-    response = requests.post(url + "api/translate_id_to_en", data=data)
-    print(response.text)
+    response = requests.post(url + "api/translate_id_to_en", json=data)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code != 200
     print("wrong translate schema time: ", time.time() - init_time)
 
@@ -112,8 +112,8 @@ def test_empty_translate():
         "text": [],
     }
     init_time = time.time()
-    response = requests.post(url + "api/translate_id_to_en", data=data)
-    print(response.text)
+    response = requests.post(url + "api/translate_id_to_en", json=data)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code != 200
     print("empty translate time: ", time.time() - init_time)
 
@@ -126,8 +126,8 @@ def test_generate_image():
         "height": 512
     }
     init_time = time.time()
-    response = requests.post(url + "api/generate/image", data=data)
-    print(response.text)
+    response = requests.post(url + "api/generate/image", json=data)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code == 200
     print("generate image time: ", time.time() - init_time)
 
@@ -140,8 +140,8 @@ def test_wrong_size_image():
         "height": 32
     }
     init_time = time.time()
-    response = requests.post(url + "api/generate/image", data=data)
-    print(response.text)
+    response = requests.post(url + "api/generate/image", json=data)
+    print(f"response: {response.text[:50]+'...'}","status code: ", response.status_code)
     assert response.status_code == 200
     print("generate image time: ", time.time() - init_time)
 
