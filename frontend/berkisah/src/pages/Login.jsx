@@ -4,12 +4,18 @@ import { Link } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import { useContext } from "react";
+import { TokenContext } from "../main";
 
 export default function Login() {
+  const {token, setToken} = useContext(TokenContext)
+
+  const navigate = useNavigate()
+  
+
     const [username, setUsername] = React.useState(null)
     const [password, setPassword] = React.useState(null)
     const [isLoading, setIsLoading] = React.useState(false)
-    const navigate = useNavigate()
 
     async function performLogin() {
     setIsLoading(true)
@@ -27,7 +33,8 @@ export default function Login() {
 
         if (response.status === 200) {
           toast.success("Berhasil login")
-          console.log(response.data.token)
+          setToken(response.data.token)
+          
           setIsLoading(false)
           navigate('/')
           return
@@ -64,7 +71,7 @@ export default function Login() {
                 
                     {/* Username */}
                     <p className=' text-hitam w-full text-left'>
-                        <label for="username">Username</label>
+                        <label htmlFor="username">Username</label>
                         <input
                             type="text"
                             id="username"
@@ -76,7 +83,7 @@ export default function Login() {
                     </p>
                     {/* Password */}
                     <p className=' text-hitam w-full text-left'>
-                        <label for="password">Password</label>
+                        <label htmlFor="password">Password</label>
                         <input
                             type="password"
                             id="password"

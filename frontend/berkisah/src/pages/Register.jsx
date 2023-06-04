@@ -72,7 +72,7 @@ export default function Register() {
                 
                 {/* Username */}
                 <p className=' text-hitam w-full text-left'>
-                        <label for="username">Username</label>
+                        <label htmlFor="username">Username</label>
                         <input
                             type="text"
                             id="username"
@@ -84,7 +84,7 @@ export default function Register() {
                     </p>
                 {/* Password */}
                 <p className=' text-hitam w-full text-left'>
-                        <label for="password">Password</label>
+                        <label htmlFor="password">Password</label>
                         <input
                             type="password"
                             id="password"
@@ -96,7 +96,7 @@ export default function Register() {
                     </p>
                 {/* Password */}
                 <p className=' text-hitam w-full text-left'>
-                        <label for="password">Ulangi Password</label>
+                        <label htmlFor="password">Ulangi Password</label>
                         <input
                             type="password"
                             id="validpassword"

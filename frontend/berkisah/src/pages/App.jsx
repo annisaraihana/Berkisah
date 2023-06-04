@@ -1,7 +1,27 @@
 import './App.css'
 import { Link } from "react-router-dom";
+import { useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TokenContext } from '../main';
+import { toast } from 'react-toastify';
+
 
 function App() {
+  const  {token, setToken} = useContext(TokenContext)
+  const navigate = useNavigate()
+
+  function logout() {
+    setToken(null)
+    navigate('/')
+  }
+
+  useEffect(() => {
+    if (token === null) {
+      navigate('/login')
+    } else {
+      toast.success(token)
+    }
+  }, [])
 
   return (
     <div className='flex justify-center items-center xl:w-screen mx-auto'>
@@ -43,6 +63,9 @@ function App() {
                     Pengaturan
                   </button>
                 </Link>
+                <button className="flex w-full" onSubmit={logout}>
+                    Logout
+                </button>
               </div>
             </div>
           </div>

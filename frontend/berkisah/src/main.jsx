@@ -10,9 +10,14 @@ import NewStory from './pages/NewStory';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { ToastContainer } from "react-toastify";
+import { useContext, createContext, useState } from "react";
+
+export const TokenContext = createContext(null)
 
 export function Main() {
+  const [token, setToken] = useState(null)
   return (
+    <TokenContext.Provider value={{token, setToken}}>
     <BrowserRouter>
     <ToastContainer/>
       <Routes>
@@ -26,6 +31,7 @@ export function Main() {
         <Route path="/register" element={<Register/>}/>
       </Routes>
     </BrowserRouter>
+    </TokenContext.Provider>
   );
 }
 
