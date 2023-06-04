@@ -56,7 +56,7 @@ export default function Login() {
     return (
         
         <div className='fixed left-0 right-0 top-0 px-[15vw] py-[15vh]'>
-          <ToastContainer/>
+          
           <div className='flex relative'>
             <div className='z-40 static p-10 min-w-full md:w-[80vw] max-w-2xl bg-[#EFEFEF] rounded-2xl overflow-hidden shadow-xl'>
               <div className="items-center justify-center">

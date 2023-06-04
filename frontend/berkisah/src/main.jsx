@@ -9,10 +9,12 @@ import MainStory from './pages/MainStory';
 import NewStory from './pages/NewStory';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { ToastContainer } from "react-toastify";
 
 export function Main() {
   return (
     <BrowserRouter>
+    <ToastContainer/>
       <Routes>
         <Route path='*' element={<NotFound/>}/>
         <Route path="/" element={<App />}/>

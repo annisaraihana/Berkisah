@@ -65,7 +65,7 @@ export default function Register() {
   return (
         <div className='fixed left-0 right-0 top-0 px-[15vw] py-[15vh]'>
           <div className='flex relative'>
-          <ToastContainer/>
+          
             <div className='z-40 static p-10 min-w-full md:w-[80vw] max-w-2xl bg-[#EFEFEF] rounded-2xl overflow-hidden shadow-xl'>
               <div className="items-center justify-center">
                 <p className='text-hitam my-4'>Buat Akun Berkisah Anda</p>
@@ -110,7 +110,7 @@ export default function Register() {
 
               {/* Daftar */}
               {isLoading ?(
-                <ClipLoader color="#10B981" loading={isLoading} size={50} />
+                <ClipLoader color="#10B981" loading={isLoading} size={25} />
               ): (
               <div className='flex justify-center items-center mt-5'>
                 <button onClick={performRegister}>
