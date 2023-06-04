@@ -1,31 +1,30 @@
 import './App.css'
+import axios from "axios";
+import { useState, useEffect } from 'react'
+import {toast} from 'react-toastify'
 
-
-let list_stories = [
-  {
-    id: 1,
-    title: 'Bawang Merah dan Bawang Putih',
-    description: 'Ini adalah cerita tentang bawang merah dan bawang putih',
-    image: 'src/assets/dummy.png',
-    prompt: '',
-  },
-  {
-    id: 2,
-    title: 'Cyberpunk 2045',
-    description: 'Ini adalah cerita tentang cyberpunk',
-    image: 'src/assets/dummy.png',
-    prompt: '',
-  },
-  {
-    id: 3,
-    title: 'Tales of the Abyss',
-    description: 'Ini adalah cerita tentang Tales of the Abyss',
-    image: 'src/assets/dummy.png',
-    prompt: '',
-  },
-]
 function NewStory() {
-
+  const [list_stories, setListStories] = useState([])
+  //Request stories from backend in the beginning
+  useEffect(() => {
+    async function getStories() {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/story_list`)
+        if (response.status === 200) {
+          setListStories(response.data)
+        }
+        else {
+          toast.error("Gagal mendapatkan daftar cerita")
+          console.log(response)
+        }
+      } catch (error) {
+        toast.error("Gagal mendapatkan daftar cerita. Error : " + error)
+        console.log(error)
+      }
+    }
+    getStories()
+  }, [])
+  
   return (
     <div className='flex justify-center items-center min-h-[85vh] min-w-[85vw]'>
       <div className='grid grid-flow-row'>
