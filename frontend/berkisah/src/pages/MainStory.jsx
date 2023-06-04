@@ -1,12 +1,13 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { TokenContext } from "../main";
-import { PromptContext } from "../main";
+import { PromptContext, ConfigurationsContext } from "../main";
 import Loader from "../components/nav/Loader";
-
+import style_dict from '../assets/style.json'
+ 
 function MainStory() {
   const {token, setToken} = useContext(TokenContext)
   const {prompt} = useContext(PromptContext)
@@ -16,26 +17,29 @@ function MainStory() {
   const [image, setImage] = React.useState('src/assets/404.png');
   const [sequence, setSequence] = React.useState([]);
   const [customChoice, setCustomChoice] = React.useState(null)
+  const {configurations, setConfigurations} = useContext(ConfigurationsContext)
 
   console.log(token)
   function generateIntro() {
-    if (content == null) axios.post(`${import.meta.env.VITE_BASE_URL}/generate/intro`, {
+    if (true) axios.post(`${import.meta.env.VITE_BASE_URL}/generate/intro`, {
       prompt: prompt
     }).then((response) => {
       setContent(response.data);
-      //generateImage();
+      generateImage();
     });
   }
  
  async function generateImage() {
   try{
     let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/generate/image`, {
-      positive_prompt: content.story,
-      negative_prompt: "nsfw creepy",
-      artstyle_keyword: "fantasy",
+      positive_prompt: content === null ? prompt : content.story,
+      //Read style.json to get the artstyle keyword, first object where style_name == configurations.image_artstyle,
+      negative_prompt: style_dict.find((style) => style.style_name == configurations.image_artstyle).negative_prompt??"",
+      artstyle_keyword: style_dict.find((style) => style.style_name == configurations.image_artstyle).positive_prompt??"",
       width: 512,
       height: 512
     })
+    console.log(response)
     if (response.status === 200){
       console.log(response.data)
       setImage(`data:image/jpeg;base64,${response.data[0]}`);
@@ -49,7 +53,7 @@ function MainStory() {
   }catch(error){
     setImage('src/assets/404.png');
     toast.error("Gagal generate gambar")
-    console.log(error)
+    throw error
   }
 }
 
@@ -69,7 +73,7 @@ function MainStory() {
   async function saveProgress() {
     await axios.post(`${import.meta.env.VITE_BASE_URL}/save_progress`, {
       token: token,
-      id_story: 0,
+      id_story: 1,
       progress: sequence,
     }).then(toast.success("Berhasil menyimpan progress"))
   }
@@ -84,6 +88,12 @@ function MainStory() {
       setSequence(sequence)
       generateStory(last, sequence)
   }
+
+  /*
+  useEffect(() => {
+    toast.info(token)
+  }, []);
+  */
 
   generateIntro()
   

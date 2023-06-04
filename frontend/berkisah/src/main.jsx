@@ -14,14 +14,22 @@ import { useContext, createContext, useState } from "react";
 
 const TokenContext = createContext(null)
 const PromptContext = createContext(null)
-export {TokenContext, PromptContext}
+const ConfigurationsContext = createContext(null)
+
+export {TokenContext, PromptContext, ConfigurationsContext}
 
 export function Main() {
   const [token, setToken] = useState(null)
   const [prompt, setPrompt] = useState("Pada zaman dahulu, hiduplah")
+  const [configurations, setConfigurations] = useState({
+    "text_model":"cahya/gpt2-small-indonesian-story",
+    "image_model":"stable-diffusion-v2-1",
+    "image_artstyle":"realistic",
+  })
   return (
     <TokenContext.Provider value={{token, setToken}}>
       <PromptContext.Provider value={{prompt, setPrompt}}>
+        <ConfigurationsContext.Provider value={{configurations, setConfigurations}}>
                                       <BrowserRouter>
                                       <ToastContainer/>
                                         <Routes>
@@ -35,6 +43,7 @@ export function Main() {
                                           <Route path="/register" element={<Register/>}/>
                                         </Routes>
                                       </BrowserRouter>
+        </ConfigurationsContext.Provider>
       </PromptContext.Provider>                                
     </TokenContext.Provider>
   );
