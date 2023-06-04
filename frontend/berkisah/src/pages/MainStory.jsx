@@ -3,8 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "../components/nav/Loader";
 
-const baseURL = 'http://127.0.0.1:5173/api';
-
 function MainStory() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [content, setContent] = React.useState(null);
@@ -12,10 +10,8 @@ function MainStory() {
   const [sequence, setSequence] = React.useState([]);
   const [customChoice, setCustomChoice] = React.useState(null)
 
-  let img = 'src/assets/dummy.png'
-  
   function generateIntro() {
-    if (content == null) axios.post(`${baseURL}/generate/intro`, {
+    if (content == null) axios.post(`${import.meta.env.VITE_BASE_URL}/generate/intro`, {
       prompt: "Ada seorang raja"
     }).then((response) => {
       setContent(response.data);
@@ -24,10 +20,10 @@ function MainStory() {
   }
   
   function generateImage() {
-    axios.post(`${baseURL}/generate/image`, {
+    axios.post(`${import.meta.env.VITE_BASE_URL}/generate/image`, {
       positive_prompt: content.story,
-      negative_prompt: "",
-      artstyle_keyword: "",
+      negative_prompt: "nsfw creepy",
+      artstyle_keyword: "fantasy",
       width: 512,
       height: 512
     }).then((response) => {
@@ -36,8 +32,8 @@ function MainStory() {
     })
   }
 
-  function generateStory(selectedchoice, currentsequence) {
-    axios.post(`${baseURL}/generate/story`, {
+  async function generateStory(selectedchoice, currentsequence) {
+     await axios.post(`${import.meta.env.VITE_BASE_URL}/generate/story`, {
       choice: selectedchoice,
       sequence: currentsequence,
     }).then((response) => {
@@ -67,43 +63,43 @@ function MainStory() {
   return (
     <div>
       {isLoading ? <Loader/> : (<>
-      <div class='grid grid-cols-3 items-center'>
+      <div className='grid grid-cols-3 items-center'>
         <div>
-          <img onClick={() => handleBack()} class="cursor-pointer aspect-square w-6" src={'src/assets/back-icon.svg'}></img>
+          <img onClick={() => handleBack()} className="cursor-pointer aspect-square w-6" src={'src/assets/back-icon.svg'}></img>
         </div>
         <h2 className='flex justify-center text-kuning mb-2'>Cerita</h2>
-        <div class='grid grid-flow-col justify-end gap-6 items-center'>
-          <img class="aspect-square w-6" src={'src/assets/save-icon.svg'}></img>
+        <div className='grid grid-flow-col justify-end gap-6 items-center'>
+          <img className="aspect-square w-6" src={'src/assets/save-icon.svg'}></img>
           <div>
             <Link to={"/"}>
-              <img class="aspect-square w-6" src={'src/assets/home-icon.svg'}></img>
+              <img className="aspect-square w-6" src={'src/assets/home-icon.svg'}></img>
             </Link>
           </div>
           <div>
             <Link to={"/settings"}>
-              <img class="aspect-square w-6" src={'src/assets/settings-icon.svg'}></img>
+              <img className="aspect-square w-6" src={'src/assets/settings-icon.svg'}></img>
             </Link>
           </div>
         </div>
       </div>
       
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-          <img class="aspect-[5/4] item-center w-full object-cover rounded-lg shadow-lg" src={`data:image/jpeg;base64,${image[0]}`}></img>
-          <div class='grid grid-flow-row'>
-          <p class='text-justify'>{content.story}</p>
+          <img className="aspect-[5/4] item-center w-full object-cover rounded-lg shadow-lg" src={`data:image/jpeg;base64,${image[0]}`}></img>
+          <div className='grid grid-flow-row'>
+          <p className='text-justify'>{content.story}</p>
             {content.choices.map((choice) => {
             return (
               <button onClick={() => handleClick(content.story, choice) + setIsLoading(true)}>{choice}</button>)
               })}
             
-            <div class='flex flex-flow-col gap-3 items-center mt-1.5'>
+            <div className='flex flex-flow-col gap-3 items-center mt-1.5'>
               <input 
                 type='text'
                 placeholder='atau ketikkan satu kalimat cerita lanjutan yang diinginkan'
                 className='w-full h-full text-hitam text-center bg-kuning rounded-lg border-2 border-[#A37C04] placeholder-[#A37C04]'
                 onChange={(e) => setCustomChoice(e.target.value)}>
               </input>
-              <button onClick={() => handleClick(content.story, customChoice) + setIsLoading(true)} class='h-full'>Submit</button>
+              <button onClick={() => handleClick(content.story, customChoice) + setIsLoading(true)} className='h-full'>Submit</button>
             </div>
           </div>      
         </div>
