@@ -36,7 +36,6 @@ export default function Login() {
                             onChange={e => setUsername(e.target.value)}
                         />
                     </p>
-                    <div className='h-6'></div>
                     {/* Password */}
                     <p className=' text-hitam w-full text-left'>
                         <label for="password">Password</label>
