@@ -2,11 +2,12 @@ import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "../components/nav/Loader";
+import { toast } from "react-toastify";
 
 function MainStory() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [content, setContent] = React.useState(null);
-  const [image, setImage] = React.useState([]);
+  const [image, setImage] = React.useState('src/assets/404.png');
   const [sequence, setSequence] = React.useState([]);
   const [customChoice, setCustomChoice] = React.useState(null)
 
@@ -19,18 +20,31 @@ function MainStory() {
     });
   }
   
-  function generateImage() {
-    axios.post(`${import.meta.env.VITE_BASE_URL}/generate/image`, {
+ async function generateImage() {
+  try{
+    let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/generate/image`, {
       positive_prompt: content.story,
       negative_prompt: "nsfw creepy",
       artstyle_keyword: "fantasy",
       width: 512,
       height: 512
-    }).then((response) => {
-      setImage(response.data);
-      setIsLoading(false);
     })
+    if (response.status === 200){
+      console.log(response.data)
+      setImage(`data:image/jpeg;base64,${response.data[0]}`);
+    }
+    else{
+      setImage('src/assets/404.png');
+      toast.error("Gagal generate gambar")
+    }
+    
+    setIsLoading(false);
+  }catch(error){
+    setImage('src/assets/404.png');
+    toast.error("Gagal generate gambar")
+    console.log(error)
   }
+}
 
   async function generateStory(selectedchoice, currentsequence) {
      await axios.post(`${import.meta.env.VITE_BASE_URL}/generate/story`, {
@@ -84,7 +98,7 @@ function MainStory() {
       </div>
       
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-          <img className="aspect-[5/4] item-center w-full object-cover rounded-lg shadow-lg" src={`data:image/jpeg;base64,${image[0]}`}></img>
+          <img className="aspect-[5/4] item-center w-full object-cover rounded-lg shadow-lg" src={image}></img>
           <div className='grid grid-flow-row'>
           <p className='text-justify'>{content.story}</p>
             {content.choices.map((choice) => {
