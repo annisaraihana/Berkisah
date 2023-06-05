@@ -18,7 +18,7 @@ export default {
         'hitam': '#060606'
       },
       backgroundImage: {
-        'base': "url('src/assets/base-bg.png')",
+        'base': "url('/src/assets/base-bg.png')",
       }
 
     },

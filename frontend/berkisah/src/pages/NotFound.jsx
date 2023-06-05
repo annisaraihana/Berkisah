@@ -6,7 +6,7 @@ function NotFound() {
       <>
         <div className='px-40 grid sm:grid-cols-2 items-center justify-center'>
           <div className='flex justify-center items-center'>
-            <img src='src\assets\aset robot.svg' className='w-3/4'></img>
+            <img src='/src/assets/aset robot.svg' className='w-3/4'></img>
           </div>
 
           <div>

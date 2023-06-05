@@ -13,7 +13,7 @@ function MainStory() {
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [content, setContent] = React.useState(null);
-  const [image, setImage] = React.useState('src/assets/404.png');
+  const [image, setImage] = React.useState('/src/assets/404.png');
   const [sequence, setSequence] = React.useState([]);
   const [customChoice, setCustomChoice] = React.useState(null)
 
@@ -41,13 +41,13 @@ function MainStory() {
       setImage(`data:image/jpeg;base64,${response.data[0]}`);
     }
     else{
-      setImage('src/assets/404.png');
+      setImage('/src/assets/404.png');
       toast.error("Gagal generate gambar")
     }
     
     setIsLoading(false);
   }catch(error){
-    setImage('src/assets/404.png');
+    setImage('/src/assets/404.png');
     toast.error("Gagal generate gambar")
     console.log(error)
   }
@@ -103,19 +103,19 @@ function MainStory() {
       {isLoading ? <Loader/> : (<>
       <div className='grid grid-cols-3 items-center'>
         <div>
-          <img onClick={() => handleBack()} className="cursor-pointer aspect-square w-6" src={'src/assets/back-icon.svg'}></img>
+          <img onClick={() => handleBack()} className="cursor-pointer aspect-square w-6" src={'/src/assets/back-icon.svg'}></img>
         </div>
         <h2 className='flex justify-center text-kuning mb-2'>Cerita</h2>
         <div className='grid grid-flow-col justify-end gap-6 items-center'>
-          <img onClick={() => saveProgress()} className="cursor-pointer aspect-square w-6" src={'src/assets/save-icon.svg'}></img>
+          <img onClick={() => saveProgress()} className="cursor-pointer aspect-square w-6" src={'/src/assets/save-icon.svg'}></img>
           <div>
             <Link to={"/"}>
-              <img className="aspect-square w-6" src={'src/assets/home-icon.svg'}></img>
+              <img className="aspect-square w-6" src={'/src/assets/home-icon.svg'}></img>
             </Link>
           </div>
           <div>
             <Link to={"/settings"}>
-              <img className="aspect-square w-6" src={'src/assets/settings-icon.svg'}></img>
+              <img className="aspect-square w-6" src={'/src/assets/settings-icon.svg'}></img>
             </Link>
           </div>
         </div>

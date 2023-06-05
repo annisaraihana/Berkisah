@@ -33,7 +33,7 @@ function App() {
         <div className='z-40 static p-10 bg-[#EFEFEF] rounded-2xl overflow-hidden shadow-xl'>
           <div className="grid grid-flow-row-dense sm:grid-cols-2 items-center justify-center">
             <div className='flex justify-center items-center'>
-              <img src='src\assets\aset home.png' className='w-2/3 sm:mr-8'></img>
+              <img src='/src/assets/aset home.png' className='w-2/3 sm:mr-8'></img>
             </div>
 
             <div>
