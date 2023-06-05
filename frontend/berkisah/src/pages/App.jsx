@@ -38,13 +38,6 @@ function App() {
 
             <div>
               <div className='grid grid-flow-row pb-5'>
-                <Link to={"/login"}>
-                  <div className='flex items-center justify-center sm:justify-end'>
-                    <p className='text-hitam mr-2 sm:mr-5'>Masuk</p>
-                    <button className="relative w-8 h-8 rounded-full flex justify-center items-center text-center p-5 shadow-xl">
-                    </button>
-                  </div>
-                </Link>
                 <div>
                   <h2 className='flex items-center justify-center sm:justify-start mt-5 text-hitam'>Berkisah</h2>
                   <p className='flex items-center justify-center sm:justify-start text-hitam'>Rangkai kisahmu di sini!</p>
